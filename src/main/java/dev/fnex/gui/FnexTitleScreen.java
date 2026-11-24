@@ -1,5 +1,6 @@
 package dev.fnex.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import dev.fnex.FnexClient;
 import dev.fnex.module.Modules;
 import dev.fnex.util.UpdateChecker;
@@ -113,7 +114,7 @@ public class FnexTitleScreen extends FnexScreen {
     }
 
     @Override protected boolean click(int mx, int my, int btn) {
-        if (btn != 0 || t < 1.5f) return false;
+        if (btn != InputConstants.MOUSE_BUTTON_LEFT || t < 1.5f) return false;
         int vw = vw(), oy = oy(), bx = (vw - BW) / 2;
         for (int i = 0; i < LABELS.length; i++) {
             if (in(mx, my, bx, 178 + oy + i * GAP, BW, BH)) { Sounds.click(); run(i); return true; }

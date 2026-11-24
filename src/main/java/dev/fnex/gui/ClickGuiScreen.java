@@ -240,16 +240,16 @@ public class ClickGuiScreen extends FnexScreen {
             if (r.kind == 0) {
                 Feature f = r.f;
                 Sounds.click();
-                if (f.isAction()) { if (btn == 0) f.action.run(); }
-                else if (f.toggleable && btn == 0 && mx >= r.x + r.w - 46) f.toggle();
+                if (f.isAction()) { if (btn == InputConstants.MOUSE_BUTTON_LEFT) f.action.run(); }
+                else if (f.toggleable && btn == InputConstants.MOUSE_BUTTON_LEFT && mx >= r.x + r.w - 46) f.toggle();
                 else if (!settingsOf(f).isEmpty()) { if (!expanded.remove(f)) expanded.add(f); }
-                else if (f.toggleable && btn == 0) f.toggle();
+                else if (f.toggleable && btn == InputConstants.MOUSE_BUTTON_LEFT) f.toggle();
             } else if (r.kind == 1) {
                 Setting s = r.s;
                 Sounds.click();
                 if (s instanceof Setting.Bool b) b.set(!b.value);
                 else if (s instanceof Setting.Num n) { dragging = n; slide(n, r, mx); }
-                else if (s instanceof Setting.Mode m) m.cycle(btn == 1 ? -1 : 1);
+                else if (s instanceof Setting.Mode m) m.cycle(btn == InputConstants.MOUSE_BUTTON_RIGHT ? -1 : 1);
                 else if (s instanceof Setting.Color col) col.open = !col.open;
                 else if (s instanceof Setting.Key k) listening = k;
                 else if (s instanceof Setting.Action a) { a.run.run(); }

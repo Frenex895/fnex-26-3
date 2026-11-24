@@ -1,5 +1,6 @@
 package dev.fnex.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import dev.fnex.module.Modules;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
@@ -53,7 +54,7 @@ public class CosmeticsScreen extends FnexScreen {
     }
 
     @Override protected boolean click(int mx, int my, int btn) {
-        if (btn != 0) return false;
+        if (btn != InputConstants.MOUSE_BUTTON_LEFT) return false;
         int vw = vw(), x0 = (vw - (3 * CW + 2 * GAP)) / 2, y0 = 80;
         List<String> n = names();
         for (int i = 0; i < n.size(); i++) {

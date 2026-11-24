@@ -1,5 +1,6 @@
 package dev.fnex.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import dev.fnex.config.ConfigManager;
 import dev.fnex.module.Feature;
 import dev.fnex.module.HudFeature;
@@ -46,7 +47,7 @@ public class HudEditorScreen extends FnexScreen {
     }
 
     @Override protected boolean click(int mx, int my, int btn) {
-        if (btn != 0) return false;
+        if (btn != InputConstants.MOUSE_BUTTON_LEFT) return false;
         HudFeature h = hovered(mx, my);
         if (h == null) return false;
         dragged = h; offX = mx - h.hudX; offY = my - h.hudY;
