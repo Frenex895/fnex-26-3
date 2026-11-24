@@ -1,0 +1,31 @@
+name: Build FNEX Client
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - mc: "26.2"
+            fabric: "0.161.0+26.2"
+          - mc: "26.3"
+            fabric: "0.166.2+26.3"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.4.0"
+      - run: gradle build -Pminecraft_version=${{ matrix.mc }} -Pfabric_version=${{ matrix.fabric }}
+      - run: python3 tools/make_mrpack.py build/libs/fnex-client-${{ matrix.mc }}-1.0.0.jar ${{ matrix.mc }}
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fnex-client-${{ matrix.mc }}
+          path: |
+            build/libs/fnex-client-${{ matrix.mc }}-1.0.0.jar
+            *.mrpack
